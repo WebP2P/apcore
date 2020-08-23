@@ -43,6 +43,12 @@ func newPgV0(schema string, log bool) *pgV0 {
 func (p *pgV0) CreateTables(t *sql.Tx) (err error) {
 	InfoLogger.Info("Running Postgres create tables v0")
 
+	//Enable UUID
+	err = p.maybeLogExecute(t, p.uuidEnable())
+	if err != nil {
+		return
+	}
+
 	// Create tables
 	err = p.maybeLogExecute(t, p.fedDataTable())
 	if err != nil {
@@ -150,6 +156,10 @@ func (p *pgV0) maybeLogExecute(t *sql.Tx, s string) (err error) {
 	}
 	_, err = t.Exec(s)
 	return
+}
+
+func (p *pgV0) uuidEnable() string {
+	return "CREATE EXTENSION pgcrypto;"
 }
 
 func (p *pgV0) fedDataTable() string {
