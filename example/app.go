@@ -24,10 +24,10 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/WebP2P/apcore"
 	"github.com/go-fed/activity/pub"
 	"github.com/go-fed/activity/streams"
 	"github.com/go-fed/activity/streams/vocab"
-	"github.com/go-fed/apcore"
 )
 
 var _ apcore.Application = &App{}

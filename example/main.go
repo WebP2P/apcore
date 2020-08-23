@@ -17,7 +17,7 @@
 package main
 
 import (
-	"github.com/go-fed/apcore"
+	"github.com/WebP2P/apcore"
 )
 
 func main() {

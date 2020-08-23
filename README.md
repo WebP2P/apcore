@@ -2,7 +2,7 @@
 
 *Under Construction*
 
-`go get github.com/go-fed/apcore`
+`go get github.com/WebP2P/apcore`
 
 apcore is a powerful single server
 [ActivityPub](https://www.w3.org/TR/activitypub)
