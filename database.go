@@ -732,13 +732,13 @@ func (d *database) UserPreferences(c context.Context, userId string) (u userPref
 func (d *database) InsertPolicy(c context.Context, p policy) (err error) {
 	if p.IsInstancePolicy {
 		_, err = d.insertInstancePolicy.ExecContext(c,
-			p.Order,
+			p.OrderVal,
 			p.Description,
 			p.Subject,
 			p.Kind)
 	} else {
 		_, err = d.insertUserPolicy.ExecContext(c,
-			p.Order,
+			p.OrderVal,
 			p.UserId,
 			p.Description,
 			p.Subject,
@@ -751,14 +751,14 @@ func (d *database) UpdatePolicy(c context.Context, p policy) (err error) {
 	if p.IsInstancePolicy {
 		_, err = d.updateInstancePolicy.ExecContext(c,
 			p.Id,
-			p.Order,
+			p.OrderVal,
 			p.Description,
 			p.Subject,
 			p.Kind)
 	} else {
 		_, err = d.updateUserPolicy.ExecContext(c,
 			p.Id,
-			p.Order,
+			p.OrderVal,
 			p.UserId,
 			p.Description,
 			p.Subject,
