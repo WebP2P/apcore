@@ -47,7 +47,7 @@ type scanner interface {
 // resolution is the decision of one or more policies.
 type resolution struct {
 	Id           string
-	Order        int
+	OrderVal     int
 	Permit       permit
 	ActivityId   *url.URL
 	TargetUserId string
@@ -63,7 +63,7 @@ func (r *resolution) Load(row scanner) (err error) {
 		&r.TargetUserId,
 		&r.Permit,
 		&activityIRI,
-		&r.Order,
+		&r.OrderVal,
 		&r.Public,
 		&r.Reason,
 		&r.PolicyId); err != nil {
@@ -89,7 +89,7 @@ const (
 // Used to determine interaction blocks.
 type policy struct {
 	Id               string
-	Order            int
+	OrderVal         int
 	IsInstancePolicy bool
 	UserId           string
 	Description      string
@@ -105,7 +105,7 @@ func (p *policy) Load(r scanner, isInstance bool) (err error) {
 		p.Public = true
 		if err = r.Scan(
 			&p.Id,
-			&p.Order,
+			&p.OrderVal,
 			&p.Description,
 			&p.Subject,
 			&p.Kind); err != nil {
@@ -214,7 +214,7 @@ func (p policies) IsBlocked(c context.Context, db *database, targetUserId string
 			TargetUserId: targetUserId,
 			Public:       policy.Public,
 			PolicyId:     policy.Id,
-			Order:        i,
+			OrderVal:     i,
 		}
 		res.Permit, res.Reason = policy.Resolve(from, activityType)
 		r = append(r, res)
